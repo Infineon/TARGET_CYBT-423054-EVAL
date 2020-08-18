@@ -11,12 +11,10 @@ The Cypress CYBT-423054-EVAL board enables you to evaluate and develop Bluetooth
 * User defined switch and LED
 * USB connector for power and programming
 
-
 ### Kit Contents
 
 * EZ-BT Module Evaluation board (CYBT-423054-EVAL) with on board module (CYBT-423054-02)
 * USB Standard-A to Micro-B cable
-
 
 ### Additional Information
 

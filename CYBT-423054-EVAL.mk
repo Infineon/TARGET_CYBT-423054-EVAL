@@ -43,6 +43,26 @@ CHIP=20719
 CHIP_REV=B2
 BLD=A
 
+FLOW_VERSION=$(if $(strip $(CY_GETLIBS_SHARED_PATH)),2,1)
+ifeq ($(FLOW_VERSION),2)
+# Chip specific libs
+COMPONENTS+=$(COMPONENTS_$(CHIP)$(CHIP_REV))
+CY_APP_PATCH_LIBS+=$(CY_$(CHIP)$(CHIP_REV)_APP_PATCH_LIBS)
+# baselib and BSP path variables
+CY_TARGET_DEVICE?=$(CHIP)$(CHIP_REV)
+ifeq ($(SEARCH_$(CY_TARGET_DEVICE)),)
+# internal only - app deploys will always initialize this in mtb.mk
+SEARCH_$(CY_TARGET_DEVICE)?=$(IN_REPO_BTSDK_ROOT)/wiced_btsdk/dev-kit/baselib/$(CY_TARGET_DEVICE)
+SEARCH+=$(SEARCH_$(CY_TARGET_DEVICE))
+endif
+CY_BSP_PATH?=$(SEARCH_TARGET_$(TARGET))
+CY_BASELIB_PATH?=$(SEARCH_$(CHIP)$(CHIP_REV))
+CY_BASELIB_CORE_PATH?=$(SEARCH_core-make)
+CY_INTERNAL_BASELIB_PATH?=$(patsubst %/,%,$(CY_BASELIB_PATH))
+#else
+#CY_BSP_PATH?=$(CY_SHARED_PATH)/dev-kit/bsp/TARGET_$(TARGET)
+endif
+
 CY_CORE_DEFINES += -DTARGET_HAS_NO_32K_CLOCK
 
 #
@@ -94,12 +114,20 @@ define extract_btp_file_value
 $(patsubst $1=%,%,$(filter $1%,$2))
 endef
 
+# override core-make buggy CY_SPACE till it's fixed
+CY_EMPTY=
+CY_SPACE=$(CY_EMPTY) $(CY_EMPTY)
+
 # split up btp file into "x=y" text
 CY_BT_FILE_TEXT:=$(shell cat -e $(CY_CORE_BTP))
 CY_BT_FILE_TEXT:=$(subst $(CY_SPACE),,$(CY_BT_FILE_TEXT))
 CY_BT_FILE_TEXT:=$(subst ^M,,$(CY_BT_FILE_TEXT))
 CY_BT_FILE_TEXT:=$(patsubst %$(\n),% ,$(CY_BT_FILE_TEXT))
 CY_BT_FILE_TEXT:=$(subst $$,$(CY_SPACE),$(CY_BT_FILE_TEXT))
+
+ifeq ($(CY_BT_FILE_TEXT),)
+$(error Failed to parse BTP variables from file: $(CY_CORE_BTP))
+endif
 
 SS_LOCATION = $(call extract_btp_file_value,DLConfigSSLocation,$(CY_BT_FILE_TEXT))
 VS_LOCATION = $(call extract_btp_file_value,DLConfigVSLocation,$(CY_BT_FILE_TEXT))

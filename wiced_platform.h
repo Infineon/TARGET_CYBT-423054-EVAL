@@ -41,7 +41,6 @@
 typedef enum
 {
     WICED_PLATFORM_LED_2,  //!< LED 2 (default, WICED_P26)
-    WICED_PLATFORM_LED_1,  //!< LED 1
     WICED_PLATFORM_LED_MAX //!< Max LED for error check
 } wiced_platform_led_number_t;
 

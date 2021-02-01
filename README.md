@@ -2,7 +2,7 @@
 
 ### Overview
 
-The Cypress CYBT-423054-EVAL board enables you to evaluate and develop Bluetooth applications using the CYBT-423054-02 module.  The CYBT-423054-02 is a dual-mode Bluetooth BR/EDR and Low Energy (BLE) wireless module solution.  The CYBT-423054-02 includes onboard crystal oscillators, passive components, and the Cypress CYW20719B2 silicon device.
+The Cypress CYBT-423054-EVAL board enables you to evaluate and develop Bluetooth applications using the CYBT-423054-02 module.  The CYBT-423054-02 is a dual-mode Bluetooth BR/EDR and Low Energy (LE) wireless module solution.  The CYBT-423054-02 includes onboard crystal oscillators, passive components, and the Cypress CYW20719B2 silicon device.
 
 ### Kit Features
 

@@ -63,6 +63,9 @@ endif
 
 CY_CORE_DEFINES += -DTARGET_HAS_NO_32K_CLOCK
 
+# declare which stack version to use in COMPONENT folders
+COMPONENTS+=btstack_v1
+
 #
 # Define the features for this target
 #

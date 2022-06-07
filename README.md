@@ -20,4 +20,4 @@ The Infineon CYBT-423054-EVAL board enables you to evaluate and develop Bluetoot
 
 Max UART baud rate is 1M.
 
-For more information, see the [CYW20719B2 Product Guide](https://community.cypress.com/docs/DOC-17736)
+For more information, see the [CYW20719B2 Product Guide](https://community.infineon.com/t5/Resource-Library/CYW20719B2-Product-Guide/ta-p/251238)
